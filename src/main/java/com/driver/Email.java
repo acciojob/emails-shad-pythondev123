@@ -33,29 +33,36 @@ public class Email {
         // 3. It contains at least one lowercase letter
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
-        if(!oldPassword.equals(this.getPassword())){
-             return;
-        }
-        int upperCase=0;
-        int lowercase=0;
-        int digit=0;
-        int specialChar=0;
-        if(newPassword.length()<8) return;
-        for(int i=0; i<newPassword.length(); i++){
-            char ch= newPassword.charAt(i);
-            if(ch>='A' && ch<='Z'){
-                upperCase++;
+        boolean lensize=false;
+        boolean upper=false;
+        boolean lower=false;
+        boolean digit=false;
+        boolean special=false;
+
+        if(!oldPassword.equals(password))
+            return;
+        if(newPassword.length()<8)
+            return;
+        lensize=true;
+        for(char c:newPassword.toCharArray()){
+            if(c>='A'&&c<='Z'){
+
+                upper=true;
             }
-            if(ch>='a' && ch<='z'){
-                lowercase++;
-            }if(ch>='0'&& ch<=9){
-                digit++;
-            }else{
-                specialChar++;
+            else if(c>='a'&&c<='z'){
+
+                lower=true;
             }
+            else if(c>='0'&&c<='9'){
+                digit =true;
+            }
+            else{
+                if(special)continue;
+                special=true;
+            }
+
         }
-        if(upperCase>0 && lowercase>0 && digit>0 && specialChar>0){
-            this.password= newPassword;
-        }
+        if(lensize&&upper&&lower&&digit&&special)
+            password=newPassword;
     }
 }
