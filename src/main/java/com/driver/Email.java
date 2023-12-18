@@ -17,6 +17,14 @@ public class Email {
     public String getPassword() {
         return password;
     }
+    public void setPassword(String password) {
+
+       this.password=password;
+    }
+    public void setEmailId(String email) {
+
+        this.emailId=email;
+    }
 
     public void changePassword(String oldPassword, String newPassword){
         //Change password only if the oldPassword is equal to current password and the new password meets all of the following:
@@ -25,5 +33,29 @@ public class Email {
         // 3. It contains at least one lowercase letter
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
+        if(!oldPassword.equals(this.getPassword())){
+             return;
+        }
+        int upperCase=0;
+        int lowercase=0;
+        int digit=0;
+        int specialChar=0;
+        if(newPassword.length()<8) return;
+        for(int i=0; i<newPassword.length(); i++){
+            char ch= newPassword.charAt(i);
+            if(ch>='A' && ch<='Z'){
+                upperCase++;
+            }
+            if(ch>='a' && ch<='z'){
+                lowercase++;
+            }if(ch>='0'&& ch<=9){
+                digit++;
+            }else{
+                specialChar++;
+            }
+        }
+        if(upperCase>0 && lowercase>0 && digit>0 && specialChar>0){
+            this.password= newPassword;
+        }
     }
 }
